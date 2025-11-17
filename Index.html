@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ChronoSpire™</title>
+  <style>
+    body {background:#000;color:#fff;font-family:monospace;text-align:center;padding:50px;}
+    #led {width:100px;height:100px;margin:20px auto;border-radius:50%;background:black;}
+    button {font-size:20px;padding:10px 20px;}
+  </style>
+</head>
+<body>
+  <h1>ChronoSpire™</h1>
+  <div id="led"></div>
+  <p id="status">Floor: 0</p>
+  <button onclick="start()">START RIDE</button>
+
+  <script>
+    const led = document.getElementById('led');
+    const status = document.getElementById('status');
+    
+    function beep() {
+      const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+      audio.play();
+    }
+
+    function start() {
+      for (let f = -32; f <= 23; f++) {
+        setTimeout(() => {
+          let y = Math.abs(f) * 10;
+          status.textContent = `Floor: ${f} | ${y < 32 ? 'SOURCE CODE' : 'BIG BANG'}`;
+          
+          if (y < 32) {
+            led.style.background = f > 0 ? 'dodgerblue' : 'crimson';
+            beep();
+          } else {
+            led.style.background = 'yellow';
+            led.style.boxShadow = '0 0 60px gold';
+            beep(); beep(); beep();
+            setTimeout(() => led.style.boxShadow = '', 400);
+          }
+        }, (f + 32) * 500);
+      }
+    }
+  </script>
+</body>
+</html>
